@@ -1,0 +1,51 @@
+def extract(code):
+    s = ''
+    for e in code:
+        if e in 'AEIOUY':
+            s += 'vowel-up '
+        elif e in 'aeiouy':
+            s += 'vowel-low '
+        elif e in 'ZRTPQSDFGHJKLMWXCVBN':
+            s += 'consonant-up '
+        elif e in 'zrtpqsdfghjklmwxcvbn':
+            s += 'consonant-low '
+        else:
+            s += 'number '
+    return s.strip()
+    
+def treatment(data):
+    l_data = data.split()
+    s = ''
+    number = 0
+    vowel_up = 0
+    vowel_low = 0
+    consonant_up = 0
+    consonant_low = 0
+    for i in range(len(l_data)):
+        if l_data[i] == 'number':
+            number += 1
+            if i == len(l_data)-1 or l_data[i+1] != l_data[i]:
+                s += f"number*{number} "
+                number = 0
+        elif l_data[i] == 'vowel-up':
+            vowel_up += 1
+            if i == len(l_data)-1 or l_data[i+1] != l_data[i]:
+                s += f"vowel-up*{vowel_up} "
+                vowel_up = 0
+        elif l_data[i] == 'vowel-low':
+            vowel_low += 1
+            if i == len(l_data)-1 or l_data[i+1] != l_data[i]:
+                s += f"vowel-low*{vowel_low} "
+                vowel_low = 0
+        elif l_data[i] == 'consonant-up':
+            consonant_up += 1
+            if i == len(l_data)-1 or l_data[i+1] != l_data[i]:
+                s += f"consonant-up*{consonant_up} "
+                consonant_up = 0
+        else:
+            consonant_low += 1
+            if i == len(l_data)-1 or l_data[i+1] != l_data[i]:
+                s += f"consonant-low*{consonant_low} "
+                consonant_low = 0
+    return s.strip()
+    
